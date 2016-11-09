@@ -43,8 +43,8 @@ cbk.plot.spider <- function(pmlfile,tableunit="ug/g",property="atomicnumber",ref
   tbl1    <- cbk.reducer(tbl0)
 ###
 ###
-  stonelist   <- rownames(tbl1)
-  stoneindex  <- 1:nrow(tbl1)
+  ## stonelist   <- rownames(tbl1)
+  ## stoneindex  <- 1:nrow(tbl1)
   chemlist    <- colnames(tbl1)
 
   ## ----------------
@@ -58,6 +58,11 @@ cbk.plot.spider <- function(pmlfile,tableunit="ug/g",property="atomicnumber",ref
   CI               <- cbk.vector(ref1[names(XX0)])
   YY               <- t(ZZ) / CI
 
+  ind <- apply(YY, 2, function(x) all(is.na(x)))
+  YY <- YY[ ,!ind ]
+  stonelist   <- colnames(YY)
+  stoneindex  <- 1:ncol(YY)
+  
   ## ----------------
   ##* PLOTS
   ## ----------------
